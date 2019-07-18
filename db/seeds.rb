@@ -9,6 +9,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'json'
+require 'pry'
 
 CURRENT_FILE_PATH = File.dirname(__FILE__)
 
@@ -20,9 +21,9 @@ document = open(TRENDING_URL)
 
 page = Nokogiri::HTML(document)
 
-repo_list_items = page.css(".repo-list").css("li")
+repo_list_items = page.css(".Box").css(".Box-row")
 
-num_repo_trending = page.css(".repo-list").css("li").length
+num_repo_trending = page.css(".Box").css(".Box-row").length
 
 puts ""
 
@@ -31,7 +32,7 @@ puts "Below is this week's list of the #{num_repo_trending} most trending reposi
 repo_with_non_listed_prog_lang = []
 
 repo_list_items.each do |repo|
-    repo_name = repo.css('h3').text.strip
+    repo_name = repo.css('h1').text.strip
     repo_description = repo.css('p').text.strip
     repo_written_language = repo.css('[itemprop="programmingLanguage"]').text
 
@@ -64,7 +65,7 @@ repo_list_items.each do |repo|
     puts '-------------------------'
     puts ""
 
-    #Trending_repo.create(name: repo_name, description: repo_description, language: repo_written_language, contributors: contributors)
+    Trending_repo.create(name: repo_name, description: repo_description, language: repo_written_language, contributors: contributors)
 end
 
 puts  "----------------------------------------------------------------------------------"
