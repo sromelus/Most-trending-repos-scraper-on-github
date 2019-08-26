@@ -4,7 +4,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [
+        name: ''
+      ]
     }
   }
 
@@ -29,7 +31,7 @@ class App extends React.Component {
   }
 
   render(){
-    debugger
+    let names = this.state.repos.map()
     return(
       <div>
       {this.state.repos[0].name}
